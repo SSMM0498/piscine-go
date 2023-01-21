@@ -18,13 +18,11 @@ func main() {
 				i++
 				toFound--
 				if toFound == 0 {
+					PrintStr(s)
 					break
 				}
 				actual = s[i]
 			}
-		}
-		if toFound == 0 {
-			PrintStr(s)
 		}
 	}
 }
