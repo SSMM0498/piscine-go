@@ -8,12 +8,14 @@ import (
 
 func main() {
 	if len(os.Args) == 3 {
-		s := noDoubleStr(os.Args[1])
-		str := noDoubleStr(os.Args[2])
-		for _, char := range s {
-			for _, actual := range str {
-				if char == actual {
+		var alreadyPrint []rune
+		str1 := os.Args[1]
+		str2 := os.Args[2]
+		for _, char := range str1 {
+			for _, actual := range str2 {
+				if char == actual && Index(string(alreadyPrint), string(char)) == -1 {
 					z01.PrintRune(char)
+					alreadyPrint = append(alreadyPrint, char)
 				}
 			}
 		}
@@ -21,18 +23,15 @@ func main() {
 	}
 }
 
-func noDoubleStr(s string) string {
-	noOccur := []rune(nil)
-	for _, char := range s {
-		isFound := false
-		for _, c := range noOccur {
-			if char == c {
-				isFound = true
-			}
-		}
-		if !isFound {
-			noOccur = append(noOccur, char)
+func Index(s string, toFind string) int {
+	if len(toFind) == 0 {
+		return 0
+	}
+	for i := 0; i <= len(s)-len(toFind); i++ {
+		subs := s[i : i+len(toFind)]
+		if subs == toFind {
+			return i
 		}
 	}
-	return string(noOccur)
+	return -1
 }
